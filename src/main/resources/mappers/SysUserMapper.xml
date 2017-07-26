@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.datagamer.devil.admin.mapper.SysUserMapper"> 
+	<!-- 结果集合  -->
+	<resultMap id="BaseResultMap" type="cn.datagamer.devil.admin.bean.SysUser">
+		<result column="id" property="id"/>
+		<result column="account" property="account"/>
+		<result column="name" property="name"/>
+		<result column="hashed_password" property="hashedPassword"/>
+		<result column="status" property="status"/>
+		<result column="is_deleted" property="isDeleted"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="updated_at" property="updatedAt"/>
+		<result column="created_by" property="createdBy"/>
+		<result column="updated_by" property="updatedBy"/>
+	</resultMap>
+       
+	<!-- 表字段  -->
+	<sql id="BaseColumnList">
+		 id,account,name,hashed_password,status,is_deleted,created_at,updated_at,created_by,updated_by
+	</sql>
+   
+	<!-- 查询条件  -->
+	<sql id="ExampleWhereClause">
+		WHERE 1=1
+		<trim suffixOverrides=",">
+			<if test="id != null">
+				<if test="excludeMe != null and excludeMe == true">
+				<![CDATA[
+					AND id <> #{id}
+				]]>
+				</if>
+				<if test="excludeMe == null or excludeMe == false">
+					AND id = #{id}
+				</if>
+			</if>
+	 		<if test="account != null and account != ''">
+				AND account = #{account}
+			</if>
+		 		<if test="name != null and name != ''">
+				AND name = #{name}
+			</if>
+		 		<if test="hashedPassword != null and hashedPassword != ''">
+				AND hashed_password = #{hashedPassword}
+			</if>
+			<if test="status != null">
+				AND status = #{status}
+			</if>
+			<if test="isDeleted != null">
+				AND is_deleted = #{isDeleted}
+			</if>
+			<if test="createdAt != null">
+			<![CDATA[
+				AND DATE_FORMAT(created_at, '%Y-%m-%d') = DATE_FORMAT(#{createdAt}, '%Y-%m-%d')
+			]]>
+			</if>
+			<if test="updatedAt != null">
+			<![CDATA[
+				AND DATE_FORMAT(updated_at, '%Y-%m-%d') = DATE_FORMAT(#{updatedAt}, '%Y-%m-%d')
+			]]>
+			</if>
+			<if test="createdBy != null">
+				AND created_by = #{createdBy}
+			</if>
+			<if test="updatedBy != null">
+				AND updated_by = #{updatedBy}
+			</if>
+		</trim>
+	</sql>
+   
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="Object">
+	  	<selectKey resultType="INTEGER" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+	  	</selectKey>
+	  	INSERT INTO sys_user(id, account, name, hashed_password, status, is_deleted, created_at, updated_at, created_by, updated_by)
+		 VALUES(#{id}, #{account}, #{name}, #{hashedPassword}, #{status}, #{isDeleted}, #{createdAt}, #{updatedAt}, #{createdBy}, #{updatedBy})
+	</insert>
+
+	<!-- 根据id，修改记录-->  
+	<update id="update" parameterType="Object">
+	  	UPDATE sys_user
+		 SET 
+			account = #{account},
+			name = #{name},
+			hashed_password = #{hashedPassword},
+			status = #{status},
+			is_deleted = #{isDeleted},
+			created_at = #{createdAt},
+			updated_at = #{updatedAt},
+			created_by = #{createdBy},
+			updated_by = #{updatedBy}
+		 WHERE id=#{id}
+	</update>
+	
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="updateSelectiveByPrimaryKey" parameterType="Object" >
+		update sys_user set 
+		<trim  suffixOverrides="," >
+			<if test="account != null  and account != '' ">
+				account=#{account},
+			</if>
+			<if test="name != null  and name != '' ">
+				name=#{name},
+			</if>
+			<if test="hashedPassword != null  and hashedPassword != '' ">
+				hashed_password=#{hashedPassword},
+			</if>
+			<if test="status != null  ">
+				status=#{status},
+			</if>
+			<if test="isDeleted != null  ">
+				is_deleted=#{isDeleted},
+			</if>
+			<if test="createdAt != null  ">
+				created_at=#{createdAt},
+			</if>
+			<if test="updatedAt != null  ">
+				updated_at=#{updatedAt},
+			</if>
+			<if test="createdBy != null  ">
+				created_by=#{createdBy},
+			</if>
+			<if test="updatedBy != null  ">
+				updated_by=#{updatedBy},
+			</if>
+		</trim> 
+		where id=#{id}
+	</update>
+
+	<!-- 删除记录(逻辑删除) -->
+	<update id="delete" parameterType="Object">
+		UPDATE sys_user
+		SET is_deleted = 1 WHERE id = #{id}
+	</update>
+
+	<!-- 根据id查询 SysUser -->
+	<select id="findById" resultMap="BaseResultMap" parameterType="Object">
+		SELECT <include refid="BaseColumnList" /> 
+		FROM sys_user WHERE id = #{id}
+	</select>
+  	
+	<!-- 查询SysUser列表 -->
+	<select id="findList" resultMap="BaseResultMap" parameterType="Object">
+		SELECT 
+		<include refid="BaseColumnList"/>
+		FROM sys_user 
+		<include refid="ExampleWhereClause"/>
+	</select>
+	
+	<!-- 用于登录检查 -->
+	<select id="queryLogin" resultMap="BaseResultMap"  parameterType="Object">
+		SELECT 
+		<include refid="BaseColumnList"/>
+		FROM sys_user 
+		WHERE account=#{account} AND hashed_password=#{hashedPassword} AND is_deleted=0
+	</select>
+	
+</mapper>   
