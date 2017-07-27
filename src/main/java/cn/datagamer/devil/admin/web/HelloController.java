@@ -24,11 +24,16 @@ public class HelloController {
     private ISysUserService sysUserService;
     
     @RequestMapping("/") //注意：spring-boot默认查找静态文件是从"/"目录找，所以不能@RequestMapping这样配置
+    public String login(Model model) {
+        return "login";
+    }
+
+    @RequestMapping("/index")
     public String index(Model model) {
         model.addAttribute("hello", "Devil");
         return "index";
     }
-    
+
     @RequestMapping("/home")
     public String home() {
         return "home";
