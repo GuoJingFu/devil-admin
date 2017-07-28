@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50619
 File Encoding         : 65001
 
-Date: 2017-07-26 16:44:26
+Date: 2017-07-28 17:09:18
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -33,3 +33,8 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_users_account` (`account`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统用户表';
+
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES ('1', 'admin', 'admin', 'E10ADC3949BA59ABBE56E057F20F883E', '0', '0', '2017-04-25 14:37:37', '2017-06-12 10:32:29', null, null);
