@@ -7,7 +7,7 @@ $.ajax = function(options) {
     function interceptor(data) {
         var args = arguments;
         //对数据进行处理
-        if (data.code == 2) {
+        if (data.code == 403) {
             window.location.href = '/';
             return;
         }
@@ -17,4 +17,20 @@ $.ajax = function(options) {
     //代理嵌入调用
     options.success = interceptor;
     return _ajax(options);
+}
+//封装json
+$.fn.serializeObject = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [ o[this.name] ];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
 }

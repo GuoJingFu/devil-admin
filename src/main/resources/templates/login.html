@@ -11,6 +11,7 @@
     <link th:href="@{/css/animate.min.css}" rel="stylesheet">
     <link th:href="@{/css/style.css}" rel="stylesheet">
     <link th:href="@{/css/login.css}" rel="stylesheet">
+    <link th:href="@{/js/plugins/layer/skin/default/layer.css}" rel="stylesheet">
 </head>
 
 <body class="signin">
@@ -29,7 +30,7 @@
             <form method="post" onsubmit="return false;" id="loginForm">
                 <h4 class="no-margins">登录：</h4>
                 <p class="m-t-md">登录到Devil Admin</p>
-                <input type="text" class="form-control uname" name="userName" placeholder="用户名"/>
+                <input type="text" class="form-control uname" name="account" placeholder="用户名"/>
                 <input type="password" class="form-control pword m-b" name="password" placeholder="密码"/>
                 <a href="">忘记密码了？</a>
                 <button class="btn btn-success btn-block" onclick="login()">登录</button>
