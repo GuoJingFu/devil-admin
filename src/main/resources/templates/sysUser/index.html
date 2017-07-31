@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<header>
+    <css th:include="common/includeCss :: includeCss"></css>
+</header>
+<body>
+<table id="dataTable"
+       data-pagination="true"
+       data-page-number=1
+       data-page-size=10
+       data-page-list="[10, 25, 50, 100]"
+       data-side-pagination="server"
+       data-url="/sysUserManagement/getList"
+       data-method="post"
+       data-content-type="application/json;charset=UTF-8"
+       data-data-type="json"
+       data-query-params-type=""
+       data-id-field="id"
+       data-striped="true"
+       data-show-refresh="true"
+       data-show-columns="true"
+       data-show-export="true">
+</table>
+
+<div th:include="common/includeScript :: includeScript"></div>
+<script th:src="@{/js/admin/sys/sysUser.js}" type="text/javascript"></script>
+</body>
+</html>

@@ -6,12 +6,8 @@
     <title>Devil Admin - 登录</title>
     <meta name="keywords" content="Devil Admin">
     <meta name="description" content="Devil Admin">
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
-    <link th:href="@{/css/animate.min.css}" rel="stylesheet">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <css th:include="common/includeCss :: includeCss"></css>
     <link th:href="@{/css/login.css}" rel="stylesheet">
-    <link th:href="@{/js/plugins/layer/skin/default/layer.css}" rel="stylesheet">
 </head>
 
 <body class="signin">
@@ -46,5 +42,5 @@
 </body>
 
 <div th:include="common/includeScript :: includeScript"></div>
-<script th:src="@{/js/sys/sysUser.js}" type="text/javascript"></script>
+<script th:src="@{/js/login.js}" type="text/javascript"></script>
 </html>
