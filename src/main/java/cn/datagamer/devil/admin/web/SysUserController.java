@@ -35,6 +35,8 @@ public class SysUserController {
     @RequestMapping(value = "/getList", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> getList(HttpServletRequest request, @RequestBody SysUser sysUser) {
+        if (sysUser.getPageSize() == null) sysUser.setPageSize(0);
+        if (sysUser.getPageStart() == null) sysUser.setPageStart(1);
         PageInfo<SysUser> userList = sysUserService.findList(sysUser);
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("total", userList.getTotal());

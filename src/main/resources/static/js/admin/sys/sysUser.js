@@ -2,6 +2,10 @@ $(function () {
     $('#dataTable').bootstrapTable({
         height: "500px",
         queryParams: queryParams,
+        exportOptions: {
+            fileName: 'sysUser',
+            worksheetName: 'sysUser'
+        },
         columns: [
                 {field: 'id',title: 'id',visible: false,align: 'center',valign: 'middle'},
                 {field: 'account',title: '账号',align: 'center',valign: 'middle'},
